@@ -1,19 +1,34 @@
+// submit button click handler
 document.getElementById("searchBtn").addEventListener("click", function () {
     const inputValue = document.getElementById("search-input");
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue.value}`)
-        .then(res => res.json())
-        .then(data => displayMealsItems(data.meals));
-        
+    const warnings = document.getElementById("warning");
+    const results = document.getElementById("result");
+    if (inputValue.value === "") {
+        warnings.style.display = 'block'
+    } else {
+        displayFoodItem(inputValue.value);
+        warnings.style.display = 'none'
+        results.style.display = 'block'
+
+    }
 })
 
+function displayFoodItem(input) {
+    // Api
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`)
+        .then(res => res.json())
+        .then(data => displayMealsItems(data.meals))
+}
+
+// all fodd items
 const displayMealsItems = meal => {
     const allMealsDiv = document.getElementById("meals-items");
     meal.forEach(allMeal => {
         const singleItemsDiv = document.createElement("div");
         singleItemsDiv.className = 'single-items'
         const mealInfo = `
-            <img onclick="displayDetails('${allMeal.strMeal}')" src="${allMeal.strMealThumb}">
-            <h4 onclick="displayDetails('${allMeal.strMeal}')">${allMeal.strMeal}</h4>
+            <img onclick="displayFoodDetails('${allMeal.strMeal}')" src="${allMeal.strMealThumb}">
+            <h4 onclick="displayFoodDetails('${allMeal.strMeal}')">${allMeal.strMeal}</h4>
         `;
         singleItemsDiv.innerHTML = mealInfo;
         allMealsDiv.appendChild(singleItemsDiv);
@@ -21,8 +36,8 @@ const displayMealsItems = meal => {
 }
 
 // food details
-
-const displayDetails = name => {
+const displayFoodDetails = name => {
+    // Api
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
     fetch(url)
         .then(res => res.json())
@@ -48,4 +63,3 @@ const renderFoodInfo = food => {
 
 `;
 };
-

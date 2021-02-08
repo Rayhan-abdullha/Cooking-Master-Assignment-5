@@ -1,5 +1,5 @@
 body {
-	background-color: #ccb34e;
+	background-color: #edd263;
 }
 .header-area {
     padding: 40px 0
@@ -69,7 +69,12 @@ h3#warning {
 	color: #db0000;
 	display: none;
 }
-
+#result {
+	display: none;
+}
+h3#result{
+	margin-top: 20px
+}
 
 /* food details */
 
@@ -96,4 +101,23 @@ footer {
 }
 footer p {
 	font-size: 18px
+}
+
+
+
+/* responsive */
+
+@media screen and (max-width: 767px) {
+    .col-md-4.logo {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	.menu-area ul {
+		display: flex;
+		justify-content: center;
+	}
+	.menu-area ul li:nth-child(1) {
+		margin-left: 0;
+	}
 }
